@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjy.nfc.dao.TaskInfoDao">
+
+    <resultMap type="com.tjy.nfc.entity.TaskInfo" id="TaskInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="companyId" column="company_id" jdbcType="VARCHAR"/>
+        <result property="planNo" column="plan_no" jdbcType="VARCHAR"/>
+        <result property="planName" column="plan_name" jdbcType="VARCHAR"/>
+        <result property="shebeiNo" column="shebei_no" jdbcType="VARCHAR"/>
+        <result property="shebeiName" column="shebei_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="times" column="times" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="checkPeopleList" column="check_people_list" jdbcType="VARCHAR"/>
+        <result property="checkPeople" column="check_people" jdbcType="VARCHAR"/>
+        <result property="dutyPeopleNo" column="duty_people_no" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="beginTime" column="begin_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+        <result property="details" column="details" jdbcType="VARCHAR"/>
+        <result property="reserve1" column="reserve1" jdbcType="VARCHAR"/>
+        <result property="reserve2" column="reserve2" jdbcType="VARCHAR"/>
+        <result property="reserve3" column="reserve3" jdbcType="VARCHAR"/>
+        <result property="reserve4" column="reserve4" jdbcType="VARCHAR"/>
+        <result property="column_21" column="column_21" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TaskInfoMap">
+        select
+          id, company_id, plan_no, plan_name, shebei_no, shebei_name, status, times, level, check_people_list, check_people, duty_people_no, address, begin_time, end_time, last_update_time, details, reserve1, reserve2, reserve3, reserve4, column_21
+        from nfc.task_info
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TaskInfoMap">
+        select
+          id, company_id, plan_no, plan_name, shebei_no, shebei_name, status, times, level, check_people_list, check_people, duty_people_no, address, begin_time, end_time, last_update_time, details, reserve1, reserve2, reserve3, reserve4, column_21
+        from nfc.task_info
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TaskInfoMap">
+        select
+          id, company_id, plan_no, plan_name, shebei_no, shebei_name, status, times, level, check_people_list, check_people, duty_people_no, address, begin_time, end_time, last_update_time, details, reserve1, reserve2, reserve3, reserve4, column_21
+        from nfc.task_info
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and company_id = #{companyId}
+            </if>
+            <if test="planNo != null and planNo != ''">
+                and plan_no = #{planNo}
+            </if>
+            <if test="planName != null and planName != ''">
+                and plan_name = #{planName}
+            </if>
+            <if test="shebeiNo != null and shebeiNo != ''">
+                and shebei_no = #{shebeiNo}
+            </if>
+            <if test="shebeiName != null and shebeiName != ''">
+                and shebei_name = #{shebeiName}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="times != null and times != ''">
+                and times = #{times}
+            </if>
+            <if test="level != null">
+                and level = #{level}
+            </if>
+            <if test="checkPeopleList != null and checkPeopleList != ''">
+                and check_people_list = #{checkPeopleList}
+            </if>
+            <if test="checkPeople != null and checkPeople != ''">
+                and check_people = #{checkPeople}
+            </if>
+            <if test="dutyPeopleNo != null and dutyPeopleNo != ''">
+                and duty_people_no = #{dutyPeopleNo}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="beginTime != null">
+                and begin_time = #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="lastUpdateTime != null">
+                and last_update_time = #{lastUpdateTime}
+            </if>
+            <if test="details != null and details != ''">
+                and details = #{details}
+            </if>
+            <if test="reserve1 != null and reserve1 != ''">
+                and reserve1 = #{reserve1}
+            </if>
+            <if test="reserve2 != null and reserve2 != ''">
+                and reserve2 = #{reserve2}
+            </if>
+            <if test="reserve3 != null and reserve3 != ''">
+                and reserve3 = #{reserve3}
+            </if>
+            <if test="reserve4 != null and reserve4 != ''">
+                and reserve4 = #{reserve4}
+            </if>
+            <if test="column_21 != null">
+                and column_21 = #{column_21}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into nfc.task_info(company_id, plan_no, plan_name, shebei_no, shebei_name, status, times, level, check_people_list, check_people, duty_people_no, address, begin_time, end_time, last_update_time, details, reserve1, reserve2, reserve3, reserve4, column_21)
+        values (#{companyId}, #{planNo}, #{planName}, #{shebeiNo}, #{shebeiName}, #{status}, #{times}, #{level}, #{checkPeopleList}, #{checkPeople}, #{dutyPeopleNo}, #{address}, #{beginTime}, #{endTime}, #{lastUpdateTime}, #{details}, #{reserve1}, #{reserve2}, #{reserve3}, #{reserve4}, #{column_21})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update nfc.task_info
+        <set>
+            <if test="companyId != null and companyId != ''">
+                company_id = #{companyId},
+            </if>
+            <if test="planNo != null and planNo != ''">
+                plan_no = #{planNo},
+            </if>
+            <if test="planName != null and planName != ''">
+                plan_name = #{planName},
+            </if>
+            <if test="shebeiNo != null and shebeiNo != ''">
+                shebei_no = #{shebeiNo},
+            </if>
+            <if test="shebeiName != null and shebeiName != ''">
+                shebei_name = #{shebeiName},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="times != null and times != ''">
+                times = #{times},
+            </if>
+            <if test="level != null">
+                level = #{level},
+            </if>
+            <if test="checkPeopleList != null and checkPeopleList != ''">
+                check_people_list = #{checkPeopleList},
+            </if>
+            <if test="checkPeople != null and checkPeople != ''">
+                check_people = #{checkPeople},
+            </if>
+            <if test="dutyPeopleNo != null and dutyPeopleNo != ''">
+                duty_people_no = #{dutyPeopleNo},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime},
+            </if>
+            <if test="details != null and details != ''">
+                details = #{details},
+            </if>
+            <if test="reserve1 != null and reserve1 != ''">
+                reserve1 = #{reserve1},
+            </if>
+            <if test="reserve2 != null and reserve2 != ''">
+                reserve2 = #{reserve2},
+            </if>
+            <if test="reserve3 != null and reserve3 != ''">
+                reserve3 = #{reserve3},
+            </if>
+            <if test="reserve4 != null and reserve4 != ''">
+                reserve4 = #{reserve4},
+            </if>
+            <if test="column_21 != null">
+                column_21 = #{column_21},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from nfc.task_info where id = #{id}
+    </delete>
+
+    <update id="changeTime">
+        update nfc.task_info set  begin_time = #{beginTime}, end_time = #{endTime} where company_id = #{companyId} and plan_no = #{planNo}
+    </update>
+
+</mapper>

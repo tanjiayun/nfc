@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjy.nfc.dao.PlanInfoDao">
+
+    <resultMap type="com.tjy.nfc.entity.PlanInfo" id="PlanInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="planName" column="plan_name" jdbcType="VARCHAR"/>
+        <result property="planNo" column="plan_no" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="dutyPeopleName" column="duty_people_name" jdbcType="VARCHAR"/>
+        <result property="dutyPeoplePhone" column="duty_people_phone" jdbcType="VARCHAR"/>
+        <result property="beginTime" column="begin_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+        <result property="companyId" column="company_id" jdbcType="VARCHAR"/>
+        <result property="shebeiList" column="shebei_list" jdbcType="VARCHAR"/>
+        <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
+        <result property="runnable" column="runnable" jdbcType="INTEGER"/>
+        <result property="reserve1" column="reserve1" jdbcType="VARCHAR"/>
+        <result property="reserve2" column="reserve2" jdbcType="VARCHAR"/>
+        <result property="reserve3" column="reserve3" jdbcType="VARCHAR"/>
+        <result property="reserve4" column="reserve4" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PlanInfoMap">
+        select
+          id, plan_name, plan_no, status, duty_people_name, duty_people_phone, begin_time, end_time, last_update_time, company_id, shebei_list, image_url, runnable, reserve1, reserve2, reserve3, reserve4
+        from nfc.plan_info
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PlanInfoMap">
+        select
+          id, plan_name, plan_no, status, duty_people_name, duty_people_phone, begin_time, end_time, last_update_time, company_id, shebei_list, image_url, runnable, reserve1, reserve2, reserve3, reserve4
+        from nfc.plan_info
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PlanInfoMap">
+        select
+          id, plan_name, plan_no, status, duty_people_name, duty_people_phone, begin_time, end_time, last_update_time, company_id, shebei_list, image_url, runnable, reserve1, reserve2, reserve3, reserve4
+        from nfc.plan_info
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planName != null and planName != ''">
+                and plan_name = #{planName}
+            </if>
+            <if test="planNo != null and planNo != ''">
+                and plan_no = #{planNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="dutyPeopleName != null and dutyPeopleName != ''">
+                and duty_people_name = #{dutyPeopleName}
+            </if>
+            <if test="dutyPeoplePhone != null and dutyPeoplePhone != ''">
+                and duty_people_phone = #{dutyPeoplePhone}
+            </if>
+            <if test="beginTime != null">
+                and begin_time = #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="lastUpdateTime != null">
+                and last_update_time = #{lastUpdateTime}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and company_id = #{companyId}
+            </if>
+            <if test="shebeiList != null and shebeiList != ''">
+                and shebei_list = #{shebeiList}
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                and image_url = #{imageUrl}
+            </if>
+            <if test="runnable != null">
+                and runnable = #{runnable}
+            </if>
+            <if test="reserve1 != null and reserve1 != ''">
+                and reserve1 = #{reserve1}
+            </if>
+            <if test="reserve2 != null and reserve2 != ''">
+                and reserve2 = #{reserve2}
+            </if>
+            <if test="reserve3 != null and reserve3 != ''">
+                and reserve3 = #{reserve3}
+            </if>
+            <if test="reserve4 != null and reserve4 != ''">
+                and reserve4 = #{reserve4}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into nfc.plan_info(plan_name, plan_no, status, duty_people_name, duty_people_phone, begin_time, end_time, last_update_time, company_id, shebei_list, image_url, runnable, reserve1, reserve2, reserve3, reserve4)
+        values (#{planName}, #{planNo}, #{status}, #{dutyPeopleName}, #{dutyPeoplePhone}, #{beginTime}, #{endTime}, #{lastUpdateTime}, #{companyId}, #{shebeiList}, #{imageUrl}, #{runnable}, #{reserve1}, #{reserve2}, #{reserve3}, #{reserve4})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update nfc.plan_info
+        <set>
+            <if test="planName != null and planName != ''">
+                plan_name = #{planName},
+            </if>
+            <if test="planNo != null and planNo != ''">
+                plan_no = #{planNo},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="dutyPeopleName != null and dutyPeopleName != ''">
+                duty_people_name = #{dutyPeopleName},
+            </if>
+            <if test="dutyPeoplePhone != null and dutyPeoplePhone != ''">
+                duty_people_phone = #{dutyPeoplePhone},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime},
+            </if>
+            <if test="companyId != null and companyId != ''">
+                company_id = #{companyId},
+            </if>
+            <if test="shebeiList != null and shebeiList != ''">
+                shebei_list = #{shebeiList},
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                image_url = #{imageUrl},
+            </if>
+            <if test="runnable != null">
+                runnable = #{runnable},
+            </if>
+            <if test="reserve1 != null and reserve1 != ''">
+                reserve1 = #{reserve1},
+            </if>
+            <if test="reserve2 != null and reserve2 != ''">
+                reserve2 = #{reserve2},
+            </if>
+            <if test="reserve3 != null and reserve3 != ''">
+                reserve3 = #{reserve3},
+            </if>
+            <if test="reserve4 != null and reserve4 != ''">
+                reserve4 = #{reserve4},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from nfc.plan_info where id = #{id}
+    </delete>
+
+    <update id="stopPlan">
+        update nfc.plan_info set runnable = 1 , status = 1   where  company_id = #{companyId} and plan_no = #{planNo}
+    </update>
+
+</mapper>

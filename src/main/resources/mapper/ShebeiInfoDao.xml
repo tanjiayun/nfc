@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjy.nfc.dao.ShebeiInfoDao">
+
+    <resultMap type="com.tjy.nfc.entity.ShebeiInfo" id="ShebeiInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="shebeiName" column="shebei_name" jdbcType="VARCHAR"/>
+        <result property="shebeiNo" column="shebei_no" jdbcType="VARCHAR"/>
+        <result property="nfcNo" column="nfc_no" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+        <result property="companyId" column="company_id" jdbcType="VARCHAR"/>
+        <result property="reserve1" column="reserve1" jdbcType="VARCHAR"/>
+        <result property="reserve2" column="reserve2" jdbcType="VARCHAR"/>
+        <result property="reserve3" column="reserve3" jdbcType="VARCHAR"/>
+        <result property="reserve4" column="reserve4" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ShebeiInfoMap">
+        select
+          id, shebei_name, shebei_no, nfc_no, status, address, last_update_time, company_id, reserve1, reserve2, reserve3, reserve4
+        from nfc.shebei_info
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ShebeiInfoMap">
+        select
+          id, shebei_name, shebei_no, nfc_no, status, address, last_update_time, company_id, reserve1, reserve2, reserve3, reserve4
+        from nfc.shebei_info
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ShebeiInfoMap">
+        select
+          id, shebei_name, shebei_no, nfc_no, status, address, last_update_time, company_id, reserve1, reserve2, reserve3, reserve4
+        from nfc.shebei_info
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="shebeiName != null and shebeiName != ''">
+                and shebei_name = #{shebeiName}
+            </if>
+            <if test="shebeiNo != null and shebeiNo != ''">
+                and shebei_no = #{shebeiNo}
+            </if>
+            <if test="nfcNo != null and nfcNo != ''">
+                and nfc_no = #{nfcNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="lastUpdateTime != null">
+                and last_update_time = #{lastUpdateTime}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                and company_id = #{companyId}
+            </if>
+            <if test="reserve1 != null and reserve1 != ''">
+                and reserve1 = #{reserve1}
+            </if>
+            <if test="reserve2 != null and reserve2 != ''">
+                and reserve2 = #{reserve2}
+            </if>
+            <if test="reserve3 != null and reserve3 != ''">
+                and reserve3 = #{reserve3}
+            </if>
+            <if test="reserve4 != null and reserve4 != ''">
+                and reserve4 = #{reserve4}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into nfc.shebei_info(shebei_name, shebei_no, nfc_no, status, address, last_update_time, company_id, reserve1, reserve2, reserve3, reserve4)
+        values (#{shebeiName}, #{shebeiNo}, #{nfcNo}, #{status}, #{address}, #{lastUpdateTime}, #{companyId}, #{reserve1}, #{reserve2}, #{reserve3}, #{reserve4})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update nfc.shebei_info
+        <set>
+            <if test="shebeiName != null and shebeiName != ''">
+                shebei_name = #{shebeiName},
+            </if>
+            <if test="shebeiNo != null and shebeiNo != ''">
+                shebei_no = #{shebeiNo},
+            </if>
+            <if test="nfcNo != null and nfcNo != ''">
+                nfc_no = #{nfcNo},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime},
+            </if>
+            <if test="companyId != null and companyId != ''">
+                company_id = #{companyId},
+            </if>
+            <if test="reserve1 != null and reserve1 != ''">
+                reserve1 = #{reserve1},
+            </if>
+            <if test="reserve2 != null and reserve2 != ''">
+                reserve2 = #{reserve2},
+            </if>
+            <if test="reserve3 != null and reserve3 != ''">
+                reserve3 = #{reserve3},
+            </if>
+            <if test="reserve4 != null and reserve4 != ''">
+                reserve4 = #{reserve4},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from nfc.shebei_info where id = #{id}
+    </delete>
+
+    <select id="queryByNameOrNo" resultMap="ShebeiInfoMap">
+        select
+        id, shebei_name, shebei_no, status, address, last_update_time, company_id, reserve1, reserve2, reserve3, reserve4
+        from nfc.shebei_info
+        <where>
+            <if test="companyId != null and companyId != ''">
+                and company_id = #{companyId}
+            </if>
+            <if test="nameOrNo != null and nameOrNo != ''">
+                and shebei_name like concat('%',#{nameOrNo},'%') or shebei_no like concat(#{nameOrNo},'%')
+            </if>
+            and status = 1
+        </where>
+    </select>
+
+</mapper>
