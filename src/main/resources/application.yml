@@ -1,0 +1,31 @@
+server:
+  port: 8090
+#  servlet:
+#    context-path: /nfc
+spring:
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/nfc?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&allowPublicKeyRetrieval=true
+#    username: root
+#    password: tjy123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://124.70.133.141:3306/nfc?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&allowPublicKeyRetrieval=true
+    username: root
+    password: tjy123456
+    destroy-method: false
+  hikari:
+    minimum-idle: 3
+    maximum-pool-size: 10
+    max-lifetime: 300000
+    connection-test-query: SELECT 1
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.tjy.nfc.entity
+
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    com.nfc: DEBUG
+
